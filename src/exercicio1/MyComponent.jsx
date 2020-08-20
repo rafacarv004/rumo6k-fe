@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //Pure Component or Class Component
-class Nome extends Component {
+class MyComponent extends Component {
 
   constructor(props) {
     super(props);
@@ -58,4 +58,4 @@ class Nome extends Component {
   }
 }
 
-export default Nome;
+export default MyComponent;

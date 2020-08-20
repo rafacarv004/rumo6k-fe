@@ -1,30 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './Root.css';
+import Exercicio1 from './exercicio1/Exercicio1';
 
 //Functional Component or Stateless Component
-export const Root = (props) => {
+const Root = (props) => {
 
   const { nome, idade } = props;
 
 return (
     <>
-      <div>oi meu nome é {nome}</div>
-      <div>eu tenho {idade} anos</div>
-      <Root2 />
+      <Exercicio1 />
     </>
   )
 }
 
-const Root2 = (props) => {
-
-  const { nome, idade } = props;
-
-return (
-    <>
-      <div>oi meu nome é {nome}</div>
-      <div>eu tenho {idade} anos</div>
-    </>
-  )
-}
-
+export default Root;
