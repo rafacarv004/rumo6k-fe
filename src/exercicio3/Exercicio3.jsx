@@ -1,25 +1,52 @@
 import React, { Component } from 'react';
-//import {BrowserRouter} from 'react-router-dom';
+import ChildComponent1 from './childComponents/ChildComponent1';
 
-
-//Pure Component or Class Component
+//callbacks, async, await, promises
 class Exercicio3 extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      meuTexto: ""
+    }
+  }
+
+  componentDidMount() {
+    this.minhaFuncaoAssincrona1();
+    this.minhaFuncaoSincrona2();
+  }
+
+  minhaFuncaoAssincrona1 = async () => {
+    await this.sleep(5000);
+    console.log("oi, eu sou a função assíncrona 1!")
+  }
+
+  minhaFuncaoSincrona2 = () => {
+    console.log("oi, eu sou a função síncrona 2!")
+  }
+
+  // Callback = function
+  inputTextHandler = (item) => {
+    //console.log(item.target.value)
+    this.setState({meuTexto: item.target.value})
+  }
 
   render() {
+    const { meuTexto } = this.state;
+
     return (
-      //<BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/path1" component={Component1} />
-          <Route path="/path2" component={Component1} />
-          <Route render={() => <Redirect to="/"/>} />
-        </Switch>
-      //</BrowserRouter>
+    <div>
+      <div>Conteudo: {meuTexto}</div>
+      <ChildComponent1 minhaCallback={this.inputTextHandler} valorDoCampo={meuTexto} />
+    </div>
     )
   }
-}
 
-//<Link to="/path1">Path 1</Link>
-//<Link to="/path2">Path 2</Link>
+
+
+  sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+}
 
 export default Exercicio3;
