@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Home from './components/pages/Home';
-import Page1 from './components/pages/Page1';
-import Page2 from './components/pages/Page2';
+import Page from './components/pages/Page';
+// import Page1 from './components/pages/Page1';
+// import Page2 from './components/pages/Page2';
+// import Page3 from './components/pages/Page3';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 
 //Routing and liking
@@ -16,8 +18,7 @@ class Exercicio3_2 extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           
-          <Route path="/page1" component={Page1} />
-          <Route path="/page2" component={Page2} />
+          <Route path="/:variavel" component={Page} />
 
           <Route render={() => <Redirect to="/"/>} />
         </Switch>
@@ -27,6 +28,8 @@ class Exercicio3_2 extends Component {
         <Link to="/page1">Page1</Link>
         <br/>
         <Link to="/page2">Page2</Link>
+        <br/>
+        <Link to="/page3">Page3</Link>
       </div>
     )
   }

@@ -70,7 +70,6 @@ class Exercicio3 extends Component {
     )
   }
 
-
   getEndereco = (cep) => {
     return new Promise((resolve, reject) => {
       if(cep === "13272-315") {
