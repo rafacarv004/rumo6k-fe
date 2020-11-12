@@ -1,0 +1,36 @@
+.cadastro-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro-container .input-area {
+  
+}
+
+.cadastro-container .title {
+  font-weight: bold;
+  color: black;
+  font-size: larger;
+}
+
+.cadastro-container .input-sm {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 120px;
+}
+
+.cadastro-container .input-md {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 240px;
+}
+
+.cadastro-container .input-lg {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 360px;
+}
+
+.cadastro-container .button {
+  margin-right: 16px;
+}

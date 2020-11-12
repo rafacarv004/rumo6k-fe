@@ -1,0 +1,49 @@
+.loja-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+}
+
+.loja-container .topNav {
+  display: flex;
+  background-color: gainsboro;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+  padding: 16px;
+}
+
+.loja-container .bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.loja-container .leftNav {
+  display: flex;
+  flex-direction: column;
+  background-color: gainsboro;
+  padding: 16px;
+  width: 240px;
+}
+
+.loja-container .leftNav .link {
+  padding: 8px;
+  text-decoration: none;
+  color: black;
+}
+
+.loja-container .leftNav .topic {
+  padding-left: 8px;
+  padding-top: 16px;
+  padding: 24px 8px 8px 4px; 
+  font-weight: bold;
+  color: black;
+  font-size: larger;
+}
+
+.loja-container .content {
+  display: flex;
+  width: 100%;
+  padding: 16px;
+}
