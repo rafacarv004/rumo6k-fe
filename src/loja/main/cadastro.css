@@ -4,7 +4,11 @@
 }
 
 .cadastro-container .input-area {
-  
+  margin: 32px;
+}
+
+.cadastro-container .buttons-area {
+  margin: 32px;
 }
 
 .cadastro-container .title {
