@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Home from './Home';
 import Cadastro from './Cadastro';
+import Busca from './Busca';
 import './loja.css';
 
 class Loja extends Component {
@@ -18,7 +19,6 @@ class Loja extends Component {
             <div className="topic">Veículos</div>
             <Link className="link" to="/veiculos/cadastro">Cadastro</Link>
             <Link className="link" to="/veiculos/busca">Busca</Link>
-
             <div className="topic">Usuários</div>
             <Link className="link" to="/usuarios/cadastro">Cadastro</Link>
           </div>
@@ -26,6 +26,7 @@ class Loja extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/veiculos/cadastro" component={Cadastro} />
+            <Route exact path="/veiculos/busca" component={Busca} />
             <Route render={() => <Redirect to="/"/>} />
           </Switch>
           </div>

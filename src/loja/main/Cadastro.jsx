@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Backdrop, CircularProgress } from '@material-ui/core';
 import { registrarCarro } from './apis/carros';
 import './cadastro.css';
 
@@ -9,7 +9,7 @@ class Cadastro extends Component {
     super(props);
 
     this.initialState = {
-      successMessage: null,
+      loading: false,
       marca: "",
       modelo: "",
       cor: "",
@@ -47,7 +47,8 @@ class Cadastro extends Component {
   }
 
   registerNewCar = async () => {
-    const { marca, modelo, cor, ano, combustivel, motor, categoria, placa, km, errors } = this.state;
+    try {
+    const { marca, modelo, cor, ano, combustivel, motor, categoria, placa, km } = this.state;
 
     const carroData = {
       marca,
@@ -97,21 +98,27 @@ class Cadastro extends Component {
       return;
     }
 
+    this.setState({loading: true});
     const response = await registrarCarro(carroData);
-
+    
     if (!response.ok) {
       alert("Erro no cadastro do veículo");
       return;
     }
     alert("Cadastro realizado com sucesso!");
+    this.clearFields();
+    //const textResponse = await response.text();
 
-    const textResponse = await response.text();
-
-
+    } catch (error) {
+      console.log("Erro no cadastro de carros", error);
+      alert("Erro no cadastro do veículo");
+    } finally {
+      this.setState({loading: false});
+    }
   }
 
   render() {
-    const { marca, modelo, cor, ano, combustivel, motor, categoria, placa, km, errors } = this.state;
+    const { marca, modelo, cor, ano, combustivel, motor, categoria, placa, km, errors, loading } = this.state;
 
     return (
       <div className="cadastro-container">
@@ -137,6 +144,9 @@ class Cadastro extends Component {
           <Button className="button" variant="contained" color="primary" onClick={this.handleSubmitButtonClick}> Cadastrar </Button>
           <Button className="button" variant="contained" onClick={this.handleClearButtonClick}> Limpar </Button>
         </div>
+        <Backdrop className="backdrop" open={loading} >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </div>
     )
   }

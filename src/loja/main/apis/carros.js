@@ -10,3 +10,29 @@ export const registrarCarro = async (params) => {
       body: JSON.stringify(params)
     });
 }
+
+export const buscarCarros = async (filters) => {
+  const params = getRequestParams(filters);
+
+  return await fetch(baseUrl + "/carros" + params, { 
+      method: 'GET',  
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    });
+}
+
+
+const getRequestParams = params => {
+  const keys = Object.keys(params);
+
+  if(keys.length === 0) {
+    return "";
+  }
+  let paramsStr = "?";
+  keys.forEach(key => {
+    paramsStr += key + "=" + params[key] + "&";
+  })
+
+  return paramsStr;
+}

@@ -38,3 +38,7 @@
 .cadastro-container .button {
   margin-right: 16px;
 }
+
+.cadastro-container .backdrop {
+  z-index: 1;
+}

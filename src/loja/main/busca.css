@@ -1,0 +1,44 @@
+.busca-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.busca-container .title {
+  font-weight: bold;
+  color: black;
+  font-size: larger;
+}
+
+.busca-container .filter-area {
+  margin: 32px;
+}
+
+.busca-container .buttons-area {
+  margin: 32px;
+}
+
+.busca-container .input-sm {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 120px;
+}
+
+.busca-container .input-md {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 240px;
+}
+
+.busca-container .input-lg {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 360px;
+}
+
+.busca-container .button {
+  margin-right: 16px;
+}
+
+.busca-container .backdrop {
+  z-index: 1;
+}
