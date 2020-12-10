@@ -22,7 +22,6 @@ export const buscarCarros = async (filters) => {
     });
 }
 
-
 const getRequestParams = params => {
   const keys = Object.keys(params);
 
