@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Button, TextField, Backdrop, CircularProgress } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
+//import { DataGrid } from '@material-ui/data-grid';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
+import Paper from '@material-ui/core/Paper';
 import { buscarCarros } from './apis/carros';
 import './busca.css';
 
@@ -10,6 +18,8 @@ class Busca extends Component {
     super(props);
 
     this.initialState = {
+      searchResults: [],
+      resultsPagination: {},
       loading: false,
       marca: "",
       modelo: "",
@@ -84,8 +94,10 @@ class Busca extends Component {
       this.setState({ loading: true });
       const response = await buscarCarros(filters);
       const result = await response.json();
+      const { searchResults, pagination } = result;
+      this.setState({ searchResults, resultsPagination: pagination });
 
-      console.log("result", result);
+      //console.log("result", result);
     } catch (error) {
 
     } finally {
@@ -93,28 +105,24 @@ class Busca extends Component {
     }
   }
 
+  componentDidMount() {
+    this.runSearch();
+  }
+
   render() {
-
-    const { marca, modelo, cor, ano, combustivel, motor, categoria, placa, km, loading } = this.state;
-
+    const { searchResults, resultsPagination, marca, modelo, cor, ano, combustivel, motor, categoria, placa, km, loading } = this.state;
 
     const columns = [
-      { field: 'id', headerName: 'ID', width: 70 },
-      { field: 'marca', headerName: 'Marca', width: 100 },
-      { field: 'modelo', headerName: 'Modelo', width: 100 },
-      { field: 'cor', headerName: 'Cor', width: 100 },
-      { field: 'ano', headerName: 'Ano', width: 100 },
-      { field: 'combustivel', headerName: 'Combustível', width: 130 },
-      { field: 'motor', headerName: 'Motor', width: 100 },
-      { field: 'categoria', headerName: 'Categoria', width: 100 },
-      { field: 'placa', headerName: 'Placa', width: 100 },
-      { field: 'km', headerName: 'Quilometragem', width: 100 }
-    ]
-
-    const rows = [
-      { id: "1", marca: 1, modelo: 'Snow', cor: 'Jon', ano: 35, combustivel: "gastola", motor:"1.0", categoria: "suv", placa: "AAA-1234", km: "12345" },
-      { id: "2", marca: 1, modelo: 'Snow', cor: 'Jon', ano: 35, combustivel: "gastola", motor:"1.0", categoria: "suv", placa: "AAA-1234", km: "12345" },
-      { id: "3", marca: 1, modelo: 'Snow', cor: 'Jon', ano: 35, combustivel: "gastola", motor:"1.0", categoria: "suv", placa: "AAA-1234", km: "12345" },
+      { title: 'ID' },
+      { title: 'Marca' },
+      { title: 'Modelo' },
+      { title: 'Cor' },
+      { title: 'Ano' },
+      { title: 'Combustivel' },
+      { title: 'Motor' },
+      { title: 'Categoria' },
+      { title: 'Placa' },
+      { title: 'Km' }
     ];
 
     return (
@@ -136,7 +144,49 @@ class Busca extends Component {
           <Button className="button" variant="contained" onClick={this.handleClearButtonClick}> Limpar </Button>
         </div>
         <div className="table-area" style={{ height: 400, width: '100%' }}>
-          <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  {
+                    columns.map(column => {
+                      return <TableCell>{column.title}</TableCell>
+                    })
+                  }
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {searchResults.map((result) => (
+                  <TableRow key={result.id}>
+                    <TableCell component="th" scope="row">{result.id}</TableCell>
+                    <TableCell>{result.marca}</TableCell>
+                    <TableCell>{result.modelo}</TableCell>
+                    <TableCell>{result.cor}</TableCell>
+                    <TableCell>{result.ano}</TableCell>
+                    <TableCell>{result.combustivel}</TableCell>
+                    <TableCell>{result.motor}</TableCell>
+                    <TableCell>{result.categoria}</TableCell>
+                    <TableCell>{result.placa}</TableCell>
+                    <TableCell>{result.km}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 30, 50]}
+            component="div"
+            count={resultsPagination.totalResultsCount}
+            rowsPerPage={Number(resultsPagination.maxResultsPerPage)}
+            page={resultsPagination.currentPageNumber}
+            onChangePage={() => {}}
+            onChangeRowsPerPage={() => {}}
+            // count={rows.length}
+            // rowsPerPage={rowsPerPage}
+            // page={page}
+            // onChangePage={handleChangePage}
+            // onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </div>
         <Backdrop className="backdrop" open={loading} >
           <CircularProgress color="inherit" />

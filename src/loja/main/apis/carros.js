@@ -3,11 +3,11 @@ const baseUrl = "http://localhost:8080";
 
 export const registrarCarro = async (params) => {
   return await fetch(baseUrl + "/carros", { 
-      method: 'POST',  
+      method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     });
 }
 
@@ -15,7 +15,7 @@ export const buscarCarros = async (filters) => {
   const params = getRequestParams(filters);
 
   return await fetch(baseUrl + "/carros" + params, { 
-      method: 'GET',  
+      method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),

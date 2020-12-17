@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Button, TextField, Backdrop, CircularProgress } from '@material-ui/core';
 import { registrarCarro } from './apis/carros';
 import './cadastro.css';
-
 class Cadastro extends Component {
 
   constructor(props) {
