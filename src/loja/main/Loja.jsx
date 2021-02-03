@@ -3,6 +3,7 @@ import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Home from './Home';
 import Cadastro from './Cadastro';
 import Busca from './Busca';
+import Detalhes from './Detalhes';
 import './loja.css';
 
 class Loja extends Component {
@@ -27,6 +28,7 @@ class Loja extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/veiculos/cadastro" component={Cadastro} />
             <Route exact path="/veiculos/busca" component={Busca} />
+            <Route exact path="/veiculos/:id" component={Detalhes} />
             <Route render={() => <Redirect to="/"/>} />
           </Switch>
           </div>

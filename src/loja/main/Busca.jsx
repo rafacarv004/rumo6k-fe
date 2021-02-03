@@ -30,6 +30,8 @@ class Busca extends Component {
       categoria: "",
       placa: "",
       km: "",
+      pageSize: 10,
+      currentPage: 0,
     }
 
     this.state = { ...this.initialState };
@@ -53,10 +55,13 @@ class Busca extends Component {
   }
 
   handleSearchButtonClick = () => {
-    this.runSearch();
+    const { resultsPagination } = this.state;
+    const { maxResultsPerPage, currentPageNumber } = resultsPagination;
+
+    this.runSearch(maxResultsPerPage, currentPageNumber);
   }
 
-  runSearch = async () => {
+  runSearch = async (pageSize = 10, currentPage = 0) => {
 
     try {
       const { marca, modelo, cor, ano, combustivel, motor, categoria, placa, km } = this.state;
@@ -90,6 +95,8 @@ class Busca extends Component {
       if (km) {
         filters.km = km;
       }
+      filters.pageSize = pageSize;
+      filters.currentPage = currentPage;
 
       this.setState({ loading: true });
       const response = await buscarCarros(filters);
@@ -97,7 +104,6 @@ class Busca extends Component {
       const { searchResults, pagination } = result;
       this.setState({ searchResults, resultsPagination: pagination });
 
-      //console.log("result", result);
     } catch (error) {
 
     } finally {
@@ -107,6 +113,21 @@ class Busca extends Component {
 
   componentDidMount() {
     this.runSearch();
+  }
+
+  handleChangePage = (arg, newPage) => {
+    const { resultsPagination } = this.state;
+    const { maxResultsPerPage } = resultsPagination;
+
+    this.runSearch(maxResultsPerPage, newPage);
+  }
+
+  handleChangeRowsPerPage = (arg) => {
+    const { resultsPagination } = this.state;
+    const { currentPageNumber } = resultsPagination;
+
+    const value = arg.target.value;
+    this.runSearch(value, currentPageNumber);
   }
 
   render() {
@@ -174,18 +195,13 @@ class Busca extends Component {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 30, 50]}
+            rowsPerPageOptions={[1, 2, 3, 10, 30, 50]}
             component="div"
             count={resultsPagination.totalResultsCount}
             rowsPerPage={Number(resultsPagination.maxResultsPerPage)}
             page={resultsPagination.currentPageNumber}
-            onChangePage={() => {}}
-            onChangeRowsPerPage={() => {}}
-            // count={rows.length}
-            // rowsPerPage={rowsPerPage}
-            // page={page}
-            // onChangePage={handleChangePage}
-            // onChangeRowsPerPage={handleChangeRowsPerPage}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
           />
         </div>
         <Backdrop className="backdrop" open={loading} >

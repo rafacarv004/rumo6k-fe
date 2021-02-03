@@ -1,0 +1,23 @@
+.details-container .input-md {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  width: 240px;
+}
+
+.details-container .title {
+  font-weight: bold;
+  color: black;
+  font-size: larger;
+}
+
+.details-container .details-area {
+  margin-top: 32px;
+}
+
+.details-container .buttons-area {
+  margin: 32px;
+}
+
+.details-container .button {
+  margin-right: 16px;
+}
